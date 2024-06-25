@@ -7,7 +7,7 @@ export const _newDialBy = target => config => () =>
   Nexus.Add.Dial(target, config);
 
 export const _dialOn = dial => eventType => call => () => 
-  dial.on(eventType, function(v) { call(v); });
+  dial.on(eventType, function(v) { call(v)(); });
 
 export const _dialSetMax = dial => value => () => 
   dial.max = value; 
