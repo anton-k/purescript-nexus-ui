@@ -1,10 +1,10 @@
 "use strict";
 
 export const _newDial = target => () =>
-  new Nexus.Dial(target);
+  Nexus.Add.Dial(target);
 
 export const _newDialBy = target => config => () =>
-  new Nexus.Dial(target, config);
+  Nexus.Add.Dial(target, config);
 
 export const _dialOn = dial => eventType => call => () => 
   dial.on(eventType, call);
