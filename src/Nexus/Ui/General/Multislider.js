@@ -13,4 +13,4 @@ export const _multisliderSetSlider = obj => index => value => () =>
   obj.setSlider(index, value);
 
 export const _multisliderSetAllSliders = obj => values => () => 
-  obj.setSlider(values);
+  obj.setAllSliders(values);
