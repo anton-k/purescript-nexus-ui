@@ -1,10 +1,9 @@
-module Nexus.Ui.Common
+module Nexus.Ui.Core.Common
   ( EventType (..)
   , fromEventType
   , Size
   ) where
 
-import Prelude
 import Data.Tuple (Tuple)
 
 type Size = Tuple Number Number

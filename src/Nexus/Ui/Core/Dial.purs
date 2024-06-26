@@ -1,4 +1,4 @@
-module Nexus.Ui.Dial
+module Nexus.Ui.Core.Dial
   ( Dial (..)
   , newDial
   , DialConfig (..)
@@ -10,7 +10,7 @@ module Nexus.Ui.Dial
 import Prelude
 import Effect (Effect)
 import Data.Tuple (fst, snd)
-import Nexus.Ui.Common (EventType, fromEventType, Size)
+import Nexus.Ui.Core.Common (EventType, fromEventType, Size)
 
 type DialConfig =
   { size :: Size

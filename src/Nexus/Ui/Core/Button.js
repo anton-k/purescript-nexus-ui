@@ -1,13 +1,13 @@
 "use strict";
 
 export const _newButton = target => () =>
-  new Nexus.Button(target);
+  Nexus.Add.Button(target);
 
 export const _newButtonBy = target => config => () =>
-  new Nexus.Button(target, config);
+  Nexus.Add.Button(target, config);
 
 export const _buttonOn = obj => eventType => call => () => 
-  obj.on(eventType, call);
+  obj.on(eventType, function (v) { call(v)(); });
 
 export const _buttonSetMode = obj => value => () => 
   obj.mode = value; 

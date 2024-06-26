@@ -1,4 +1,4 @@
-module Nexus.Ui.Button
+module Nexus.Ui.Core.Button
   ( Button (..)
   , newButton
   , newButtonBy
@@ -7,7 +7,7 @@ module Nexus.Ui.Button
 
 import Prelude
 import Effect (Effect)
-import Nexus.Ui.Common (EventType, fromEventType, Size)
+import Nexus.Ui.Core.Common (EventType, fromEventType, Size)
 import Data.Tuple (fst, snd)
 
 type Button =
