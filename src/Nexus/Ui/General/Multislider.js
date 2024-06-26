@@ -8,3 +8,9 @@ export const _newMultisliderBy = target => config => () =>
 
 export const _multisliderOn = obj => eventType => call => () => 
   obj.on(eventType, function(v) { call(v)(); });
+
+export const _multisliderSetSlider = obj => index => value => () => 
+  obj.setSlider(index, value);
+
+export const _multisliderSetAllSliders = obj => values => () => 
+  obj.setSlider(values);

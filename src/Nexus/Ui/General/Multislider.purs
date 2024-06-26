@@ -14,6 +14,8 @@ import Data.Tuple (fst, snd)
 
 type Multislider =
   { on :: EventType -> (Array Number -> Effect Unit) -> Effect Unit
+  , setSlider :: Int -> Number -> Effect Unit
+  , setAllSliders :: Array Number -> Effect Unit
   }
 
 type MultisliderConfig =
@@ -51,6 +53,8 @@ newMultisliderBy target config =
 toMultislider :: MultisliderType -> Multislider
 toMultislider mslider =
   { on: _multisliderOn mslider <<< fromEventType
+  , setSlider: _multisliderSetSlider mslider
+  , setAllSliders: _multisliderSetAllSliders mslider
   }
 
 type MultisliderInternalConfig =
@@ -83,3 +87,5 @@ foreign import data MultisliderType :: Type
 foreign import _newMultislider :: String -> Effect MultisliderType
 foreign import _newMultisliderBy :: String -> MultisliderInternalConfig -> Effect MultisliderType
 foreign import _multisliderOn :: MultisliderType -> String -> (Array Number -> Effect Unit) -> Effect Unit
+foreign import _multisliderSetSlider :: MultisliderType -> Int -> Number -> Effect Unit
+foreign import _multisliderSetAllSliders :: MultisliderType -> Array Number -> Effect Unit
