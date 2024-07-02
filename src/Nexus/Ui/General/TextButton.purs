@@ -8,8 +8,11 @@ module Nexus.Ui.General.TextButton
 import Prelude
 import Effect (Effect)
 import Nexus.Ui.Core.Common (EventType, fromEventType, Size, ColorProperty, fromColorProperty, HexColor)
-import Data.Tuple (fst, snd)
-import Data.Maybe (Maybe)
+import Data.Tuple (Tuple (..), fst, snd)
+import Data.Maybe (Maybe (..))
+import JSON (JSON)
+import JSON as J
+import JSON.Object as JO
 
 type TextButtonConfig =
   { size :: Size
@@ -61,18 +64,17 @@ toTextButton button =
 
 toInternalConfig :: TextButtonConfig -> TextButtonInternalConfig
 toInternalConfig config =
-  { size: [fst config.size, snd config.size]
-  , state: config.state
-  , text: config.text
-  , alternateText: config.alternateText
-  }
+  J.fromJObject $ JO.fromEntries $
+    [ Tuple "size" (J.fromArray [J.fromNumber $ fst config.size, J.fromNumber $ snd config.size])
+    , Tuple "state" (J.fromBoolean config.state)
+    , Tuple "text" (J.fromString config.text)
+    ]
+    <> (case config.alternateText of
+          Nothing -> []
+          Just text -> [Tuple "alternateText" (J.fromString text)]
+       )
 
-type TextButtonInternalConfig =
-  { size :: Array Number
-  , state :: Boolean
-  , text :: String
-  , alternateText :: Maybe String
-  }
+type TextButtonInternalConfig = JSON
 
 foreign import data TextButtonType :: Type
 

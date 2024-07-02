@@ -11,7 +11,14 @@ When creating a new Spago project, you can use
 to generate this file without the comments in this block.
 -}
 { name = "nexus-ui"
-, dependencies = [ "console", "effect", "prelude", "tuples", "maybe" ]
+, dependencies = 
+    [ "console"
+    , "effect"
+    , "prelude"
+    , "tuples"
+    , "maybe" 
+    , "json"
+    ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
 }
