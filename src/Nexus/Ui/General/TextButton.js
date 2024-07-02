@@ -1,10 +1,10 @@
 "use strict";
 
 export const _newTextButton = target => () =>
-  Nexus.Add.TexttextButton(target);
+  Nexus.Add.TextButton(target);
 
 export const _newTextButtonBy = target => config => () =>
-  Nexus.Add.TexttextButton(target, config);
+  Nexus.Add.TextButton(target, config);
 
 export const _textButtonOn = obj => eventType => call => () => 
   obj.on(eventType, function (v) { call(v)(); });
