@@ -3,6 +3,8 @@ module Nexus.Ui.Core.Button
   , newButton
   , newButtonBy
   , ButtonMode (..)
+  , fromButtonMode
+  , toButtonMode
   ) where
 
 import Prelude
@@ -36,16 +38,16 @@ data ButtonMode
     | ImpulseButton
     | ToggleButton
 
-fromMode :: ButtonMode -> String
-fromMode button =
+fromButtonMode :: ButtonMode -> String
+fromButtonMode button =
   case button of
     PlainButton -> "button"
     AftertouchButton -> "aftertouch"
     ImpulseButton -> "impulse"
     ToggleButton -> "toggle"
 
-toMode :: Partial => String -> ButtonMode
-toMode str =
+toButtonMode :: Partial => String -> ButtonMode
+toButtonMode str =
     case str of
       "button" -> PlainButton
       "aftertouch" -> AftertouchButton
@@ -63,8 +65,8 @@ newButtonBy target config =
 toButton :: ButtonType -> Button
 toButton button =
   { on: _buttonOn button <<< fromEventType
-  , setMode: _buttonSetMode button <<< fromMode
-  , getMode: map toMode (_buttonGetMode button)
+  , setMode: _buttonSetMode button <<< fromButtonMode
+  , getMode: map toButtonMode (_buttonGetMode button)
   , setState: _buttonSetState button
   , getState: _buttonGetState button
   , destroy: _buttonDestroy button
@@ -78,7 +80,7 @@ toButton button =
 toInternalConfig :: ButtonConfig -> ButtonInternalConfig
 toInternalConfig config =
   { size: [fst config.size, snd config.size]
-  , mode: fromMode config.mode
+  , mode: fromButtonMode config.mode
   , state: config.state
   }
 
