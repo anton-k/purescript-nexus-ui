@@ -14,3 +14,6 @@ export const _multisliderSetSlider = obj => index => value => () =>
 
 export const _multisliderSetAllSliders = obj => values => () => 
   obj.setAllSliders(values);
+
+export const _multisliderColorize = obj => prop => color => () => 
+  obj.colorize(prop, color);

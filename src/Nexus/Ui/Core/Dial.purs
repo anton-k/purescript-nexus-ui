@@ -10,7 +10,7 @@ module Nexus.Ui.Core.Dial
 import Prelude
 import Effect (Effect)
 import Data.Tuple (fst, snd)
-import Nexus.Ui.Core.Common (EventType, fromEventType, Size)
+import Nexus.Ui.Core.Common (EventType, fromEventType, Size, ColorProperty, fromColorProperty, HexColor)
 
 type DialConfig =
   { size :: Size
@@ -36,6 +36,7 @@ type Dial =
   , getValue :: Effect Number
   , destroy :: Effect Unit
   , resize :: Size -> Effect Unit
+  , colorize :: ColorProperty -> HexColor -> Effect Unit
   }
 
 newDial :: String -> Effect Dial
@@ -63,6 +64,7 @@ toDial dial =
   , getValue: _dialGetValue dial
   , destroy: _dialDestroy dial
   , resize: \size -> _dialResize dial (fst size) (snd size)
+  , colorize: _dialColorize dial <<< fromColorProperty
   }
 
 data DialMode = RelativeDial | AbsoluteDial
@@ -126,3 +128,4 @@ foreign import _dialSetValue :: DialType -> Number -> Effect Unit
 foreign import _dialGetValue :: DialType -> Effect Number
 foreign import _dialDestroy :: DialType -> Effect Unit
 foreign import _dialResize :: DialType -> Number -> Number -> Effect Unit
+foreign import _dialColorize :: DialType -> String -> String -> Effect Unit

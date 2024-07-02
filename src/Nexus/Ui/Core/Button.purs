@@ -7,7 +7,7 @@ module Nexus.Ui.Core.Button
 
 import Prelude
 import Effect (Effect)
-import Nexus.Ui.Core.Common (EventType, fromEventType, Size)
+import Nexus.Ui.Core.Common (EventType, fromEventType, Size, ColorProperty, fromColorProperty, HexColor)
 import Data.Tuple (fst, snd)
 
 type Button =
@@ -21,6 +21,7 @@ type Button =
   , resize :: Size -> Effect Unit
   , turnOff :: Effect Unit
   , turnOn :: Effect Unit
+  , colorize :: ColorProperty -> HexColor -> Effect Unit
   }
 
 type ButtonConfig =
@@ -71,6 +72,7 @@ toButton button =
   , resize: \size -> _buttonResize button (fst size) (snd size)
   , turnOff: _buttonTurnOff button
   , turnOn: _buttonTurnOn button
+  , colorize: _buttonColorize button <<< fromColorProperty
   }
 
 toInternalConfig :: ButtonConfig -> ButtonInternalConfig
@@ -100,3 +102,4 @@ foreign import _buttonFlip :: ButtonType -> Effect Unit
 foreign import _buttonResize :: ButtonType -> Number -> Number -> Effect Unit
 foreign import _buttonTurnOff :: ButtonType -> Effect Unit
 foreign import _buttonTurnOn :: ButtonType -> Effect Unit
+foreign import _buttonColorize :: ButtonType -> String -> String -> Effect Unit

@@ -27,4 +27,6 @@ export const _radioButtonSetNumberOfButtons = obj => size => () =>
 export const _radioButtonGetNumberOfButtons = obj => () => 
   obj.numberOfButtons; 
 
+export const _radioButtonColorize = obj => prop => color => () => 
+  obj.colorize(prop, color);
 

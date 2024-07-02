@@ -44,3 +44,6 @@ export const _sliderDestroy = slider => () =>
 
 export const _sliderResize = slider => width => height => () => 
   slider.resize(width, height); 
+
+export const _sliderColorize = obj => prop => color => () => 
+  obj.colorize(prop, color);

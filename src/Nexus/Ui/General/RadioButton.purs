@@ -8,7 +8,7 @@ module Nexus.Ui.General.RadioButton
 import Prelude
 import Effect (Effect)
 import Data.Tuple (fst, snd)
-import Nexus.Ui.Core.Common (Size, EventType, fromEventType)
+import Nexus.Ui.Core.Common (EventType, fromEventType, Size, ColorProperty, fromColorProperty, HexColor)
 
 type RadioButton =
   { on :: EventType -> (Int -> Effect Unit) -> Effect Unit
@@ -18,6 +18,7 @@ type RadioButton =
   , destroy :: Effect Unit
   , resize :: Size -> Effect Unit
   , select :: Int -> Effect Unit
+  , colorize :: ColorProperty -> HexColor -> Effect Unit
   }
 
 type RadioButtonConfig =
@@ -45,6 +46,7 @@ toRadioButton radio =
   , destroy: _radioButtonDestroy radio
   , resize: \size -> _radioButtonResize radio (fst size) (snd size)
   , select: _radioButtonSelect radio
+  , colorize: _radioButtonColorize radio <<< fromColorProperty
   }
 
 fromConfig :: RadioButtonConfig -> RadioButtonInternalConfig
@@ -71,3 +73,4 @@ foreign import _radioButtonDestroy :: RadioButtonType -> Effect Unit
 foreign import _radioButtonResize :: RadioButtonType -> Number -> Number -> Effect Unit
 foreign import _radioButtonSelect :: RadioButtonType -> Int -> Effect Unit
 foreign import _radioButtonOn :: RadioButtonType -> String -> (Int -> Effect Unit) -> Effect Unit
+foreign import _radioButtonColorize :: RadioButtonType -> String -> String -> Effect Unit

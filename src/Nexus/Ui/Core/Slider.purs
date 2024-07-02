@@ -10,7 +10,7 @@ module Nexus.Ui.Core.Slider
 import Prelude
 import Effect (Effect)
 import Data.Tuple (fst, snd)
-import Nexus.Ui.Core.Common (EventType, fromEventType, Size)
+import Nexus.Ui.Core.Common (EventType, fromEventType, Size, ColorProperty, fromColorProperty, HexColor)
 
 type SliderConfig =
   { size :: Size
@@ -36,6 +36,7 @@ type Slider =
   , getValue :: Effect Number
   , destroy :: Effect Unit
   , resize :: Size -> Effect Unit
+  , colorize :: ColorProperty -> HexColor -> Effect Unit
   }
 
 newSlider :: String -> Effect Slider
@@ -63,6 +64,7 @@ toSlider slider =
   , getValue: _sliderGetValue slider
   , destroy: _sliderDestroy slider
   , resize: \size -> _sliderResize slider (fst size) (snd size)
+  , colorize: _sliderColorize slider <<< fromColorProperty
   }
 
 data SliderMode = RelativeSlider | AbsoluteSlider
@@ -126,3 +128,4 @@ foreign import _sliderSetValue :: SliderType -> Number -> Effect Unit
 foreign import _sliderGetValue :: SliderType -> Effect Number
 foreign import _sliderDestroy :: SliderType -> Effect Unit
 foreign import _sliderResize :: SliderType -> Number -> Number -> Effect Unit
+foreign import _sliderColorize :: SliderType -> String -> String -> Effect Unit

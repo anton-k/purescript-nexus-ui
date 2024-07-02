@@ -44,3 +44,6 @@ export const _dialDestroy = dial => () =>
 
 export const _dialResize = dial => width => height => () => 
   dial.resize(width, height); 
+
+export const _dialColorize = obj => prop => color => () => 
+  obj.colorize(prop, color);

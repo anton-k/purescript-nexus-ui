@@ -36,3 +36,5 @@ export const _buttonTurnOff = obj => () =>
 export const _buttonTurnOn = obj => () => 
   obj.turnOn(); 
 
+export const _buttonColorize = obj => prop => color => () => 
+  obj.colorize(prop, color);

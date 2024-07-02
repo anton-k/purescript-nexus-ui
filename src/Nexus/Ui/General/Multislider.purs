@@ -7,15 +7,15 @@ module Nexus.Ui.General.Multislider
   ) where
 
 import Prelude
-import Nexus.Ui.Core.Common (EventType, fromEventType, Size)
 import Effect (Effect)
 import Data.Tuple (fst, snd)
-
+import Nexus.Ui.Core.Common (EventType, fromEventType, Size, ColorProperty, fromColorProperty, HexColor)
 
 type Multislider =
   { on :: EventType -> (Array Number -> Effect Unit) -> Effect Unit
   , setSlider :: Int -> Number -> Effect Unit
   , setAllSliders :: Array Number -> Effect Unit
+  , colorize :: ColorProperty -> HexColor -> Effect Unit
   }
 
 type MultisliderConfig =
@@ -37,11 +37,6 @@ fromMode = case _ of
   BarMultislider -> "bar"
   LineMultislider -> "line"
 
-toMode :: Partial => String -> MultisliderMode
-toMode = case _ of
-  "bar" -> BarMultislider
-  "line" -> LineMultislider
-
 newMultislider :: String -> Effect Multislider
 newMultislider target =
   map toMultislider (_newMultislider target)
@@ -55,6 +50,7 @@ toMultislider mslider =
   { on: _multisliderOn mslider <<< fromEventType
   , setSlider: _multisliderSetSlider mslider
   , setAllSliders: _multisliderSetAllSliders mslider
+  , colorize: _multisliderColorize mslider <<< fromColorProperty
   }
 
 type MultisliderInternalConfig =
@@ -89,3 +85,4 @@ foreign import _newMultisliderBy :: String -> MultisliderInternalConfig -> Effec
 foreign import _multisliderOn :: MultisliderType -> String -> (Array Number -> Effect Unit) -> Effect Unit
 foreign import _multisliderSetSlider :: MultisliderType -> Int -> Number -> Effect Unit
 foreign import _multisliderSetAllSliders :: MultisliderType -> Array Number -> Effect Unit
+foreign import _multisliderColorize :: MultisliderType -> String -> String -> Effect Unit
