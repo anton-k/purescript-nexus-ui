@@ -9,12 +9,6 @@ export const _newTextButtonBy = target => config => () =>
 export const _textButtonOn = obj => eventType => call => () => 
   obj.on(eventType, function (v) { call(v)(); });
 
-export const _textButtonSetMode = obj => value => () => 
-  obj.mode = value; 
-
-export const _textButtonGetMode = obj => () => 
-  obj.mode; 
-
 export const _textButtonSetText = obj => value => () => 
   obj.text = value; 
 

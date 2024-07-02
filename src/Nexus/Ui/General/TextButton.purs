@@ -6,23 +6,20 @@ module Nexus.Ui.General.TextButton
   ) where
 
 import Prelude
-import Nexus.Ui.Core.Button (ButtonMode, fromButtonMode, toButtonMode)
 import Effect (Effect)
 import Nexus.Ui.Core.Common (EventType, fromEventType, Size, ColorProperty, fromColorProperty, HexColor)
 import Data.Tuple (fst, snd)
+import Data.Maybe (Maybe)
 
 type TextButtonConfig =
   { size :: Size
-  , mode :: ButtonMode
   , state :: Boolean
   , text :: String
-  , alternateText :: String
+  , alternateText :: Maybe String
   }
 
 type TextButton =
   { on :: EventType -> Effect Unit -> Effect Unit
-  , setMode :: ButtonMode -> Effect Unit
-  , getMode :: Partial => Effect ButtonMode
   , setState :: Boolean -> Effect Unit
   , getState :: Effect Boolean
   , setText :: String -> Effect Unit
@@ -48,8 +45,6 @@ newTextButtonBy target config =
 toTextButton :: TextButtonType -> TextButton
 toTextButton button =
   { on: _textButtonOn button <<< fromEventType
-  , setMode: _textButtonSetMode button <<< fromButtonMode
-  , getMode: map toButtonMode (_textButtonGetMode button)
   , setState: _textButtonSetState button
   , getState: _textButtonGetState button
   , setText: _textButtonSetText button
@@ -67,7 +62,6 @@ toTextButton button =
 toInternalConfig :: TextButtonConfig -> TextButtonInternalConfig
 toInternalConfig config =
   { size: [fst config.size, snd config.size]
-  , mode: fromButtonMode config.mode
   , state: config.state
   , text: config.text
   , alternateText: config.alternateText
@@ -75,10 +69,9 @@ toInternalConfig config =
 
 type TextButtonInternalConfig =
   { size :: Array Number
-  , mode :: String
   , state :: Boolean
   , text :: String
-  , alternateText :: String
+  , alternateText :: Maybe String
   }
 
 foreign import data TextButtonType :: Type
@@ -86,8 +79,6 @@ foreign import data TextButtonType :: Type
 foreign import _newTextButton :: String -> Effect TextButtonType
 foreign import _newTextButtonBy :: String -> TextButtonInternalConfig -> Effect TextButtonType
 foreign import _textButtonOn :: TextButtonType -> String -> Effect Unit -> Effect Unit
-foreign import _textButtonSetMode :: TextButtonType -> String -> Effect Unit
-foreign import _textButtonGetMode :: TextButtonType -> Effect String
 foreign import _textButtonSetText :: TextButtonType -> String -> Effect Unit
 foreign import _textButtonGetText :: TextButtonType -> Effect String
 foreign import _textButtonSetAlternateText :: TextButtonType -> String -> Effect Unit
