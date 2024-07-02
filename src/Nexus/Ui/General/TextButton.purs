@@ -22,7 +22,7 @@ type TextButtonConfig =
   }
 
 type TextButton =
-  { on :: EventType -> Effect Unit -> Effect Unit
+  { on :: EventType -> (Boolean -> Effect Unit) -> Effect Unit
   , setState :: Boolean -> Effect Unit
   , getState :: Effect Boolean
   , setText :: String -> Effect Unit
@@ -80,7 +80,7 @@ foreign import data TextButtonType :: Type
 
 foreign import _newTextButton :: String -> Effect TextButtonType
 foreign import _newTextButtonBy :: String -> TextButtonInternalConfig -> Effect TextButtonType
-foreign import _textButtonOn :: TextButtonType -> String -> Effect Unit -> Effect Unit
+foreign import _textButtonOn :: TextButtonType -> String -> (Boolean -> Effect Unit) -> Effect Unit
 foreign import _textButtonSetText :: TextButtonType -> String -> Effect Unit
 foreign import _textButtonGetText :: TextButtonType -> Effect String
 foreign import _textButtonSetAlternateText :: TextButtonType -> String -> Effect Unit
