@@ -9,11 +9,11 @@ export const _newSelectBy = target => config => () =>
 export const _selectOn = obj => eventType => call => () => 
   obj.on(eventType, function(v) { call(v)(); });
 
-export const _selectSetSelectIndex = obj => index => () => 
-  obj.selectIndex = index; 
+export const _selectSetSelectedIndex = obj => index => () => 
+  obj.selectedIndex = index; 
 
-export const _selectGetSelectIndex = obj => () => 
-  obj.selectIndex; 
+export const _selectGetSelectedIndex = obj => () => 
+  obj.selectedIndex; 
 
 export const _selectSetValue = obj => index => () => 
   obj.value = index; 

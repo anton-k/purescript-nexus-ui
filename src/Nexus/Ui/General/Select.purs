@@ -15,8 +15,8 @@ type Select =
   { defineOptions :: Array String -> Effect Unit
   , destroy :: Effect Unit
   , resize :: Size -> Effect Unit
-  , getSelectIndex :: Effect Int
-  , setSelectIndex :: Int -> Effect Unit
+  , getSelectedIndex :: Effect Int
+  , setSelectedIndex :: Int -> Effect Unit
   , getValue :: Effect String
   , setValue :: String -> Effect Unit
   , on :: EventType -> (SelectItem -> Effect Unit) -> Effect Unit
@@ -41,8 +41,8 @@ toSelect select =
   { defineOptions: _selectDefineOptions select
   , destroy: _selectDestroy select
   , resize: \(Tuple a b) -> _selectResize select a b
-  , getSelectIndex: _selectGetSelectIndex select
-  , setSelectIndex: _selectSetSelectIndex select
+  , getSelectedIndex: _selectGetSelectedIndex select
+  , setSelectedIndex: _selectSetSelectedIndex select
   , getValue: _selectGetValue select
   , setValue: _selectSetValue select
   , on: _selectOn select <<< fromEventType
@@ -50,7 +50,7 @@ toSelect select =
   }
 
 type SelectItem =
-  { selectIndex :: Int
+  { selectedIndex :: Int
   , value :: String
   }
 
@@ -60,8 +60,8 @@ foreign import _newSelect :: String -> Effect SelectType
 foreign import _newSelectBy :: String -> SelectConfig -> Effect SelectType
 foreign import _selectDefineOptions :: SelectType -> Array String -> Effect Unit
 foreign import _selectDestroy :: SelectType -> Effect Unit
-foreign import _selectGetSelectIndex :: SelectType -> Effect Int
-foreign import _selectSetSelectIndex :: SelectType -> Int -> Effect Unit
+foreign import _selectGetSelectedIndex :: SelectType -> Effect Int
+foreign import _selectSetSelectedIndex :: SelectType -> Int -> Effect Unit
 foreign import _selectOn :: SelectType -> String -> (SelectItem -> Effect Unit) -> Effect Unit
 foreign import _selectResize :: SelectType -> Number -> Number -> Effect Unit
 foreign import _selectSetValue :: SelectType -> String -> Effect Unit
