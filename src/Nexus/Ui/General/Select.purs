@@ -50,7 +50,7 @@ toSelect select =
   }
 
 type SelectItem =
-  { selectedIndex :: Int
+  { index :: Int
   , value :: String
   }
 
