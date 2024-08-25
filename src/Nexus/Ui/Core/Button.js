@@ -7,7 +7,7 @@ export const _newButtonBy = target => config => () =>
   Nexus.Add.Button(target, config);
 
 export const _buttonOn = obj => eventType => call => () => 
-  obj.on(eventType, function (v) { call(v)(); });
+  obj.on(eventType, function () { call(); });
 
 export const _buttonSetMode = obj => value => () => 
   obj.mode = value; 
